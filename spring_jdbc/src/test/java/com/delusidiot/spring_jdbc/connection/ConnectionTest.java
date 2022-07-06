@@ -56,7 +56,7 @@ public class ConnectionTest {
         log.info("connection={}, class={}", con2, con2.getClass());
     }
     /*
-     * DriverManager는 커넥션을 획득할 때 마다 같은 파라미터를 계속 전달해야 한다.
-     * 반면 DataSource를 사용하는 방식은 처음 객체를 생성할 때만 필요한 파라미터를 넘겨두고 커넥션을 획득할 때는 단순히 dataSource.getConnection()만 호출
+     * DriverManager 는 커넥션을 획득할 때 마다 같은 파라미터를 계속 전달해야 한다.
+     * 반면 DataSource 를 사용하는 방식은 처음 객체를 생성할 때만 필요한 파라미터를 넘겨두고 커넥션을 획득할 때는 단순히 dataSource.getConnection()만 호출
      */
 }

@@ -28,6 +28,7 @@ class MemberRepositoryV1Test {
 /*        기본 DriverManager - 항상 새로운 커넥션 획득
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
         DataSource 라는 추상화된 인터베이스를 사용했기 때문에 Repository 에서 DataSource 를 구현한 것을 주입 받을 수 있다. (DI)
+        DataSource 는 Connection 을 얻을 수 있는 방법을 추상화한 인터페이스이다.
  */
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(URL);
