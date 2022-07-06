@@ -16,6 +16,6 @@ Transaction 을 적용하였습니다.
 
 Controller 와 Service 그리고 Repository 에 대한 분리가 명확하지 않습니다.
 
-특히 Service 영역은 다른 기술에 의존적이지 않고 순수한 Java 로만 작성될 수 있도록 해야 합니다.
+특히 Service 영역은 다른 기술에 의존적이지 않고 순수한 Java 로만 작성될 수 있도록 해야 합니다. 해당 버전에서는 Transaction 의 적용으로 JDBC 에 의존적인 형태입니다.
 
 ## V3
