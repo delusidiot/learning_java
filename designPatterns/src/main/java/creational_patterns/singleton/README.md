@@ -41,6 +41,8 @@ java 1.5 부터 생긴 volatile 을 사용합니다.
 
 ### Reflection
 
+[Main.brokenSingleton()](./Main.java)에서 볼 수 있습니다.
+
 ### 직렬화 역직렬화
 
 해당 경우는 클래스에 Serializable을 implements해줘야 사용가능한 방법입니다.
