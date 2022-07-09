@@ -2,7 +2,7 @@
 
 인스턴스를 오직 한개만 제공하는 클래스
 
-<img width="200" alt="Singleton" src="https://user-images.githubusercontent.com/65374355/177692937-acb5d3dc-89ca-4e1f-8b58-73d5b5a45374.png">
+![Singleton](https://user-images.githubusercontent.com/65374355/178108372-baadd8d3-579f-4202-a38f-6ddf4695704f.png)
 
 시스템 런타임, 환경 세팅에 대한 정보 등, 인스턴스가 여러개 일 때 문제가 생길 수 있는 경우가 있습니다. 인스턴스를 오직 한개만 만들어 제공하는 클래스가 필요합니다.
 
