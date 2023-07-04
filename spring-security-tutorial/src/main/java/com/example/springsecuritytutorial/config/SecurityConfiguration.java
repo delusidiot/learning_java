@@ -3,11 +3,10 @@ package com.example.springsecuritytutorial.config;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -19,23 +18,52 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfiguration {
     @Bean
+    @Order(100)
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .securityMatcher("/user")
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers(HttpMethod.GET, "/").permitAll();
-                    authorize.requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_USER", "OIDC_USER");
-                    authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER", "OIDC_USER");
                     authorize.anyRequest().authenticated();
                 })
-                .csrf(AbstractHttpConfigurer::disable)
-                .headers(headers ->
-                    headers
-                            .frameOptions(HeadersConfigurer
-                                    .FrameOptionsConfig::disable)
-                )
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults())
-                .oauth2Login(withDefaults());
+                .formLogin(withDefaults());
+        return http.build();
+    }
+
+    @Bean
+    @Order(101)
+    SecurityFilterChain securityFilterChainAdmin(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/admin")
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN");
+                    authorize.anyRequest().authenticated();
+                })
+                .formLogin(withDefaults());
+        return http.build();
+    }
+
+    @Bean
+    @Order(102)
+    SecurityFilterChain securityFilterChainHome(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/")
+                .authorizeHttpRequests(authorize -> {
+                    authorize.anyRequest().permitAll();
+                })
+                .formLogin(withDefaults());
+        return http.build();
+    }
+
+    @Bean
+    @Order(103)
+    SecurityFilterChain securityFilterChainOther(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorize -> {
+                    authorize.anyRequest().denyAll();
+                })
+                .formLogin(withDefaults());
         return http.build();
     }
     @Bean
