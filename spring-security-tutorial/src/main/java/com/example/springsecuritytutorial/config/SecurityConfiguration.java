@@ -34,7 +34,8 @@ public class SecurityConfiguration {
                                     .FrameOptionsConfig::disable)
                 )
                 .formLogin(withDefaults())
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults())
+                .oauth2Login(withDefaults());
         return http.build();
     }
     @Bean
