@@ -7,16 +7,15 @@ spring:
       client:
         registration:
           google:
-            client-id: id
-            client-secret: secret
+            client-id: ${google-client-id}
+            client-secret: ${google-client-secret}
           github:
             client-id: id
             client-secret: secret
           facebook:
             client-id: id
             client-secret: secret
-
 logging:
   level:
-    com.example.springsecuritytutorial: trace
-
+    org.springframework.security: INFO
+    org.springframework.jdbc: INFO
