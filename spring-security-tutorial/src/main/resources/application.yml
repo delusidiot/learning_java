@@ -10,4 +10,5 @@ spring:
 
 logging:
   level:
-    com.example.springsecuritytutorial: trace
+    org.springframework.security: INFO
+    org.springframework.jdbc: INFO
