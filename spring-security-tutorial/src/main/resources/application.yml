@@ -1,24 +1,13 @@
 server:
   port: 8080
 
-
 logging:
   level:
     org.springframework.security: INFO
     org.springframework.jdbc: INFO
+
 spring:
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://192.168.0.18:3306/test
-    username: test
-    password: test
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MariaDB103Dialect
-        format_sql: true
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: create-drop
-    generate-ddl: false
-    show-sql: true
+  security:
+    user:
+      name: member
+      password: member
