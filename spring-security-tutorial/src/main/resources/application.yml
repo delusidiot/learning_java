@@ -12,3 +12,10 @@ spring:
       path: /h2-console
   datasource:
     generate-unique-name: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: id
+            client-secret: secret

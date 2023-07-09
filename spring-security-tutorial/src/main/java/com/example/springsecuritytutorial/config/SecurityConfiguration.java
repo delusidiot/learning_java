@@ -23,14 +23,15 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers(HttpMethod.GET, "/").permitAll();
-                    authorize.requestMatchers(HttpMethod.GET, "/user/**").hasRole("USER");
+                    authorize.requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_USER", "OIDC_USER");
                     authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN");
                     authorize.anyRequest().authenticated();
                 })
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .formLogin(withDefaults())
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults())
+                .oauth2Login(withDefaults());
         return http.build();
     }
     @Bean
