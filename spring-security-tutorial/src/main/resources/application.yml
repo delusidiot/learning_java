@@ -4,8 +4,7 @@ server:
 logging:
   level:
     org.springframework.security: INFO
-#    org.springframework.jdbc: INFO
-
+    org.springframework.jdbc: INFO
 spring:
   h2:
     console:
