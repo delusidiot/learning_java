@@ -9,9 +9,7 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -25,25 +23,19 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers(HttpMethod.GET, "/").permitAll();
-                    authorize.requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_USER", "OIDC_USER");
+                    authorize.requestMatchers(HttpMethod.GET, "/user/**").hasRole("USER");
                     authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN");
                     authorize.anyRequest().authenticated();
                 })
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .formLogin(withDefaults())
                 .httpBasic(withDefaults());
         return http.build();
     }
 
     @Bean
-    UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
-    }
-
-    @Bean
     PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

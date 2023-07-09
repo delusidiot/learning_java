@@ -6,16 +6,17 @@ logging:
     org.springframework.security: INFO
     org.springframework.jdbc: INFO
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   datasource:
-    generate-unique-name: true
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: id
-            client-secret: secret
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://192.168.0.18:3306/test
+    username: test
+    password: test
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show-sql: true
