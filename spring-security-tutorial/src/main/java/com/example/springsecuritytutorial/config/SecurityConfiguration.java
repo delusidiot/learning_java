@@ -1,17 +1,19 @@
 package com.example.springsecuritytutorial.config;
 
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -30,22 +32,27 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .formLogin(withDefaults())
-                .httpBasic(withDefaults())
-                .oauth2Login(withDefaults());
+                .httpBasic(withDefaults());
         return http.build();
-    }
-    @Bean
-    JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
-    DataSource dataSource() {
-        return DataSourceBuilder.create()
-                .driverClassName("org.h2.Driver")
-                .url("jdbc:h2:mem:testdb")
-                .username("sa")
-                .password("")
-                .build();
+    UserDetailsService userDetailsService() {
+        return new MyUserDetailsService();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    public ApplicationListener<AuthenticationSuccessEvent> successEvent() {
+        return event -> System.err.printf("Success Login %s - %s%n",event.getAuthentication().getClass().getName(), event.getAuthentication().getName() );
+    }
+
+    @Bean
+    public ApplicationListener<AuthenticationFailureBadCredentialsEvent> failureEvent() {
+        return event -> System.err.printf("Bad Credentials Login %s - %s%n",event.getAuthentication().getClass().getName(), event.getAuthentication().getName() );
     }
 }
