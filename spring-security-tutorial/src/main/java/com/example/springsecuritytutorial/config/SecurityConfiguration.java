@@ -38,9 +38,10 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     public ApplicationListener<AuthenticationSuccessEvent> successEvent() {
-        return event -> System.err.printf("Success Login %s - %s%n",event.getAuthentication().getClass().getName(), event.getAuthentication().getName() );
+            return event -> System.err.printf("Success Login %s - %s%n",event.getAuthentication().getClass().getName(), event.getAuthentication().getName() );
     }
 
     @Bean

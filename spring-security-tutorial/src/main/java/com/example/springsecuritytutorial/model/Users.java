@@ -3,6 +3,7 @@ package com.example.springsecuritytutorial.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -38,4 +39,9 @@ public class Users {
     private Boolean credentialsNonExpired = true;
     @Builder.Default
     private Boolean enabled = true;
+
+    private String firstName;
+    private String lastName;
+    private String emailAddress;
+    private LocalDate birthdate;
 }

@@ -5,12 +5,15 @@ values ( 'ROLE_ADMIN' );
 insert into authorities(authority)
 values ( 'ROLE_DEVELOPER' );
 
-insert into users(username, password, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED, CREDENTIALS_NON_EXPIRED, ENABLED)
-values ( 'Developer', '$2y$07$ionwU9D46zj0UoZK2d9ki.EjFzzYAtd3CuFnxxM88m1CmpQ..qyw2', true, true, true, true );
-insert into users(username, password, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED, CREDENTIALS_NON_EXPIRED, ENABLED)
-values ( 'Admin', '$2y$07$ionwU9D46zj0UoZK2d9ki.EjFzzYAtd3CuFnxxM88m1CmpQ..qyw2', true, true, true, true );
-insert into users(username, password, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED, CREDENTIALS_NON_EXPIRED, ENABLED)
-values ( 'User', '$2y$07$ionwU9D46zj0UoZK2d9ki.EjFzzYAtd3CuFnxxM88m1CmpQ..qyw2', true, true, true, true );
+INSERT INTO users(username, password, account_non_expired, account_non_locked, credentials_non_expired, enabled, first_name, last_name, email_address, birthdate)
+VALUES ('Developer', '$2a$12$2yOChyhSuJm/naTBUjGZb.6d6mu1NsXS8XWRFousQfRTwzy0ZQtWW'
+       , true, true, true, true, 'Willy', 'De Keyser', 'wdkeyser@gmail.com', DATE('1990-01-01'));
+INSERT INTO users(username, password, account_non_expired, account_non_locked, credentials_non_expired, enabled, first_name, last_name, email_address, birthdate)
+VALUES ('Admin', '$2a$12$2yOChyhSuJm/naTBUjGZb.6d6mu1NsXS8XWRFousQfRTwzy0ZQtWW'
+       , true, true, true, true, 'Walter', 'De Keyser', 'wdkeyser@gmail.com', DATE('1990-01-01'));
+INSERT INTO users(username, password, account_non_expired, account_non_locked, credentials_non_expired, enabled, first_name, last_name, email_address, birthdate)
+VALUES ('User', '$2a$12$2yOChyhSuJm/naTBUjGZb.6d6mu1NsXS8XWRFousQfRTwzy0ZQtWW',
+        true, true, true, true, 'Ken', 'De Keyser', 'wdkeyser@gmail.com', DATE('1990-01-01'));
 
 INSERT INTO  users_authorities(users_id, authorities_id) VALUES ( 1, 1 );
 INSERT INTO  users_authorities(users_id, authorities_id) VALUES ( 1, 2 );

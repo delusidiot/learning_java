@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,11 +38,7 @@ public class MyUserDetailsService implements UserDetailsService{
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         user.getAuthorities().forEach(authority ->
                 grantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority())));
-        return User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .authorities(grantedAuthorities)
-                .disabled(!user.getEnabled())
-                .build();
+        return new MyUser(user.getUsername(), user.getPassword(), true, true, true, true, grantedAuthorities,
+                user.getFirstName(), user.getLastName(), user.getEmailAddress(), user.getBirthdate());
     }
 }

@@ -1,3 +1,7 @@
+drop table users_authorities;
+drop table authorities;
+drop table users;
+
 create table authorities (
     id bigint not null auto_increment,
     authority varchar(255),
@@ -12,6 +16,10 @@ create table users (
     id bigint not null auto_increment,
     password varchar(255),
     username varchar(255),
+    first_name varchar(50),
+    last_name varchar(50),
+    email_address varchar(50),
+    birthdate datetime,
     primary key (id)
 ) engine=InnoDB;
 
