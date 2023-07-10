@@ -3,7 +3,7 @@ server:
 
 logging:
   level:
-    org.springframework.security: INFO
+    org.springframework.security: TRACE
     org.springframework.jdbc: INFO
 spring:
   datasource:
