@@ -23,9 +23,9 @@ public class Token {
     @Enumerated(EnumType.STRING)
     private TokeType tokeType;
 
-    private Boolean expired;
+    private boolean expired;
 
-    private Boolean revoked;
+    private boolean revoked;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
